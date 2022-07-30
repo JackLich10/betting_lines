@@ -100,11 +100,6 @@ save_lines <- function(type = c("NFL", "NBA")) {
 
   type <- tolower(type)
 
-  # Create directory
-  if (!dir.exists(here::here(paste0("data/", type)))) {
-    dir.create(here::here(paste0("data/", type)))
-  }
-
   # Path to write to
   path <- paste0("data/", type, "/draftkings_", Sys.Date(), "_lines.csv")
   readr::write_csv(bets, path)
