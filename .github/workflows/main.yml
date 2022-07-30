@@ -1,0 +1,37 @@
+name: DraftKings Scheduled Run
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+    reporter:
+        runs-on: ubuntu-latest
+        name: Scraping DraftKings
+        steps:
+          - uses: actions/checkout@v2
+          - name: Set up R ${{ matrix.r-version }}
+            uses: r-lib/actions/setup-r@v2
+            with:
+              r-version: ${{ matrix.r-version }}
+          - name: Install libcurl
+            run: sudo apt-get install libcurl4-openssl-dev libssl-dev libicu-dev libxml2-dev
+          - uses: r-lib/actions/setup-pandoc@v2
+          - name: Install base dependencies
+            run: |
+              Rscript -e 'install.packages(c("dplyr","httr","janitor","jsonlite","purrr","readr","stringi","stringr","tidyr")'
+            env:
+              GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          - name: Pull data and update files
+            run: Rscript ./R/draft_kings.R
+          - name: Commit files
+            run: |
+              git config --local user.email "action@github.com"
+              git config --local user.name "Github Action"
+              git pull
+              git add ./data/.
+              git commit -m "Updated DraftKings lines after latest bot run." || echo "No changes to commit"
+          - name: Push updated files
+            uses: ad-m/github-push-action@master
+            with:
+              github_token: ${{ secrets.GITHUB_TOKEN }}
