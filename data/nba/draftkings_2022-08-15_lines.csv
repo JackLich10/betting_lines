@@ -1,0 +1,5 @@
+date,bet_type,suspended,open,label,probability,odds_american,odds_decimal,odds_fractional,line,subcategory_id,bet_type_id,criterion_id,offer_id
+2022-08-15,Spread,FALSE,TRUE,LA Lakers,0.5121951219512195,-105,1.95238096,20/21,5.5,4511,1,2_0,2_66296615
+2022-08-15,Spread,FALSE,TRUE,GS Warriors,0.5348837209302325,-115,1.86956522,20/23,-5.5,4511,1,2_0,2_66296615
+2022-08-15,Moneyline,FALSE,TRUE,LA Lakers,0.3389830508474576,195,2.95,39/20,NA,4511,2,1_0,1_66296615
+2022-08-15,Moneyline,FALSE,TRUE,GS Warriors,0.696969696969697,-230,1.43478261,10/23,NA,4511,2,1_0,1_66296615
